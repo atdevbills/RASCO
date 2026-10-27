@@ -4,17 +4,17 @@
 
 const SCHOOL = {
   name: "Royal Agape School Complex",
-  tagline: "Learning with purpose. Growing with confidence.",
+  tagline: "Bright At The Corner Where You Are",
   location: "Adoteiman - Amrahia",
   // Text Google Maps searches for, e.g. "Royal Agape School Complex, Kumasi, Ghana".
   // Leave empty to show a placeholder instead of the map.
   mapQuery: "ROYAL AGAPE SCHOOL COMPLEX, KALE STREET, Accra",
-  phone: "0249914664",
-  whatsapp: "233249914664",
+  phone: "233593798620",
+  whatsapp: "233593798620",
   email: "",
   headmistress: "Mrs. Rejoice Oklu",
-  // File name of her photo, saved in the same folder as index.html, e.g. "headmistress.jpg"
-  headmistressPhoto: "madam.jpeg",
+  // File name of her photo, saved in the same folder as index.html, e.g. "madam.jpeg". Leave empty to show a placeholder.
+  headmistressPhoto: "",
   headmistressRole: "Headmistress",
   headmistressMessage:
     "At Royal Agape School Complex, we work with families to provide a caring environment where learners can grow in knowledge, character and confidence.",
@@ -41,8 +41,6 @@ const $ = (selector, root = document) => root.querySelector(selector);
 const icon = {
   menu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
   close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 6 12 12M18 6 6 18"/></svg>',
-  home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 10 9-7 9 7"/><path d="M5 9v12h14V9M9 21v-7h6v7"/></svg>',
-  board: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="15" rx="1"/><path d="M8 7h8M8 11h8M8 15h5M12 18v3M8 21h8"/></svg>',
   phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M10 18h4"/></svg>',
   calendar: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18M8 14h3"/></svg>',
   pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.800 12 21 12 21Z"/><circle cx="12" cy="9.500" r="2.500"/></svg>',
@@ -66,9 +64,9 @@ function escapeHTML(value = "") {
 
 function sectionMarkup() {
   $("#about").className = "section";
-  $("#Headmistress").className = "section headmistress-section";
+  $("#leadership").className = "section headmistress-section";
   $("#gallery").className = "section";
-  $("#googleacademiccalender").className = "section calendar-section";
+  $("#calendar").className = "section calendar-section";
   $("#socials").className = "social-section";
 
   $("#about").innerHTML = `
@@ -76,7 +74,7 @@ function sectionMarkup() {
       <div class="about-copy">
         <div class="section-heading">
           <p class="section-kicker">Who we are</p>
-          <h2>A strong foundation for every learner.</h2>
+          <h2 id="about-heading">A strong foundation for every learner.</h2>
           <p class="section-intro">${escapeHTML(SCHOOL.about)}</p>
         </div>
         <ul class="values-list">
@@ -93,7 +91,7 @@ function sectionMarkup() {
       </aside>
     </div>`;
 
-  $("#Headmistress").innerHTML = `
+  $("#leadership").innerHTML = `
     <div class="container headmistress-grid">
       <div class="portrait-frame${SCHOOL.headmistressPhoto ? " has-photo" : ""}">
         ${SCHOOL.headmistressPhoto
@@ -101,14 +99,14 @@ function sectionMarkup() {
           : `<div class="portrait-placeholder">
               ${icon.person}
               <div>
-                <strong>Headmistress's photograph</strong>
-                <p>Add her photo file name to headmistressPhoto in script.js.</p>
+                <strong>${escapeHTML(SCHOOL.headmistress)}</strong>
+                <p>${escapeHTML(SCHOOL.headmistressRole)}</p>
               </div>
             </div>`}
       </div>
       <div class="headmistress-copy">
         <p class="section-kicker">School leadership</p>
-        <h2>A message from our headmistress</h2>
+        <h2 id="headmistress-heading">A message from our headmistress</h2>
         <p class="role-label">${escapeHTML(SCHOOL.headmistressRole)}</p>
         <h3>${escapeHTML(SCHOOL.headmistress)}</h3>
         <p>${escapeHTML(SCHOOL.headmistressMessage)}</p>
@@ -125,17 +123,17 @@ function sectionMarkup() {
     <div class="container">
       <div class="section-heading">
         <p class="section-kicker">Life at school</p>
-        <h2>Learning, friendship and growth.</h2>
+        <h2 id="gallery-heading">Learning, friendship and growth.</h2>
         <p class="section-intro">A glimpse of the people and moments that make up our school community.</p>
       </div>
       <div class="gallery-grid">${galleryItems}</div>
     </div>`;
 
-  $("#googleacademiccalender").innerHTML = `
+  $("#calendar").innerHTML = `
     <div class="container">
       <div class="section-heading">
         <p class="section-kicker">Stay informed</p>
-        <h2>Academic calendar</h2>
+        <h2 id="calendar-heading">Academic calendar</h2>
         <p class="section-intro">Keep track of term dates, PTA meetings and important school events.</p>
       </div>
       <div class="calendar-frame">
@@ -149,7 +147,7 @@ function sectionMarkup() {
     <div class="container social-inner">
       <div>
         <p class="section-kicker">Keep in touch</p>
-        <h2>Follow our school community</h2>
+        <h2 id="socials-heading">Follow our school community</h2>
       </div>
       <div class="social-links">
         ${socialLink("facebook", "Facebook")}
@@ -165,7 +163,7 @@ function sectionMarkup() {
     <div class="container">
       <div class="section-heading">
         <p class="section-kicker">Find us</p>
-        <h2>Visit our school</h2>
+        <h2 id="location-heading">Visit our school</h2>
         <p class="section-intro">${escapeHTML(SCHOOL.location)}</p>
       </div>
       <div class="map-frame">
@@ -199,8 +197,10 @@ function sectionMarkup() {
         <div class="footer-column">
           <h3>Quick links</h3>
           <p><a href="#about">About the school</a></p>
-          <p><a href="#Headmistress">School leadership</a></p>
-          <p><a href="#googleacademiccalender">Academic calendar</a></p>
+          <p><a href="#leadership">School leadership</a></p>
+          <p><a href="#gallery">Gallery</a></p>
+          <p><a href="#calendar">Academic calendar</a></p>
+          <p><a href="#location">Find us</a></p>
         </div>
       </div>
       <div class="footer-bottom">
@@ -215,9 +215,6 @@ function sectionMarkup() {
 function socialLink(key, label) {
   const url = SCHOOL.socials[key];
   const iconMarkup = icon[key] || "";
-  if (!url && key === "tiktok") {
-    return `<span class="social-link is-pending" title="Our TikTok link is coming soon">${iconMarkup}<span>${label}</span></span>`;
-  }
   if (!url) return "";
   return `<a class="social-link" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${iconMarkup}<span>${label}</span></a>`;
 }
@@ -236,22 +233,23 @@ function createHeaderAndNavigation() {
         <img class="brand-logo" src="agapelogo.png" alt="" onerror="this.style.display='none'">
         <span class="brand-copy">
           <span class="brand-name">${escapeHTML(SCHOOL.name)}</span>
-          <span class="brand-tagline">Bright At The Corner Where You Are</span>
+          <span class="brand-tagline">${escapeHTML(SCHOOL.tagline)}</span>
         </span>
       </a>
       <nav class="primary-nav" aria-label="Main navigation">
         <a href="#about">About</a>
-        <a href="#Headmistress">Leadership</a>
+        <a href="#leadership">Leadership</a>
         <a href="#gallery">Gallery</a>
-        <a href="#googleacademiccalender">Calendar</a>
+        <a href="#calendar">Calendar</a>
+        <a href="#footer">Contact</a>
       </nav>
       <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">${icon.menu}</button>
     </div>
     <nav class="mobile-menu" aria-label="Mobile navigation">
       <a href="#about">About the school</a>
-      <a href="#Headmistress">School leadership</a>
+      <a href="#leadership">School leadership</a>
       <a href="#gallery">Gallery</a>
-      <a href="#googleacademiccalender">Academic calendar</a>
+      <a href="#calendar">Academic calendar</a>
       <a href="#footer">Contact</a>
     </nav>`;
 
@@ -284,9 +282,10 @@ function createHero() {
       <div class="hero-copy">
         <p class="eyebrow">Welcome to our school</p>
         <h1>Every child deserves <span>a strong start.</span></h1>
-        <p class="hero-description">${escapeHTML(SCHOOL.tagline)} We partner with families to create a positive place to learn, discover and grow.</p>
+        <p class="hero-description">We partner with families to create a positive place to learn, discover and grow.</p>
         <div class="hero-actions">
-          <a class="button" href="#about">Discover our school</a>
+          ${SCHOOL.whatsapp ? `<a class="button" href="${whatsappURL()}" target="_blank" rel="noopener noreferrer">Chat on WhatsApp</a>` : ""}
+          ${SCHOOL.phone ? `<a class="button button-secondary" href="tel:${escapeHTML(SCHOOL.phone.replace(/[^+\d]/g, ""))}">Call the school</a>` : ""}
         </div>
       </div>
       <aside class="hero-note">
@@ -313,21 +312,12 @@ function createContactButtons() {
   if (wrapper.children.length) document.body.appendChild(wrapper);
 }
 
-function createBottomNavigation() {
-  const nav = document.createElement("nav");
-  nav.className = "bottom-nav";
-  nav.setAttribute("aria-label", "Quick navigation");
-  nav.innerHTML = ``;
-  document.body.appendChild(nav);
-}
-
 function initialise() {
   document.title = `${SCHOOL.name} | Home`;
   createHeaderAndNavigation();
   createHero();
   sectionMarkup();
   createContactButtons();
-  createBottomNavigation();
 }
 
 document.addEventListener("DOMContentLoaded", initialise);
